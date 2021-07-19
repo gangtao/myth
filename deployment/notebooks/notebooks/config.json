@@ -1,0 +1,95 @@
+{
+    "batch_size": 100,
+    "repeat": 20,
+    "concurrency": 1,
+    "interval": 1,
+    "name": "cpu",
+    "start_date": "",
+    "precision": "s",
+    "realtime": false,
+    "fields": [
+        {
+            "name": "time",
+            "type": "timestamp",
+            "precision": "s"
+        },
+        {
+            "name": "tag_id",
+            "type": "string",
+            "format": "####"
+        },
+        {
+            "name": "usage_user",
+            "type": "number",
+            "format": "##"
+        },
+        {
+            "name": "usage_system",
+            "type": "number",
+            "format": "##"
+        },
+        {
+            "name": "usage_idle",
+            "type": "number",
+            "format": "##"
+        },
+        {
+            "name": "usage_nice",
+            "type": "number",
+            "format": "##"
+        },
+        {
+            "name": "usage_iowait",
+            "type": "number",
+            "format": "##"
+        },
+        {
+            "name": "usage_irq",
+            "type": "number",
+            "format": "##"
+        },
+        {
+            "name": "usage_softirq",
+            "type": "number",
+            "format": "##"
+        },
+        {
+            "name": "usage_steal",
+            "type": "number",
+            "format": "##"
+        },
+        {
+            "name": "usage_guest",
+            "type": "number",
+            "format": "##"
+        },
+        {
+            "name": "usage_guest_nice",
+            "type": "number",
+            "format": "##"
+        },
+        {
+            "name": "additional_tags",
+            "type": "string",
+            "format": "##"
+        },
+        {
+            "name": "hostname",
+            "type": "string",
+            "format": "timeplus.io"
+        }
+    ],
+    "sinks": [
+        {
+            "type": "clickhouse",
+            "url": "http://clickhouse:8123/",
+            "schema": {
+                "create_table": "auto",
+                "create_table_sql": "",
+                "table_name": "cpu",
+                "database_name": "devops",
+                "partition_fields": "time"
+            }
+        }
+    ]
+}

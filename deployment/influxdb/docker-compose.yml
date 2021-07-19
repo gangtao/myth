@@ -1,0 +1,20 @@
+version: "3.7"
+services:
+  influxdb:
+    container_name: influxdb
+    image: quay.io/influxdb/influxdb:v2.0.3
+    volumes:
+      - ./data/:/root/.influxdbv2
+    ports:
+      - "8086:8086"
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 4096M
+        reservations:
+          memory: 4096M
+    networks:
+      - default
+networks:
+  default:
