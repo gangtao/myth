@@ -134,7 +134,7 @@ class ClickhouseSink(Sink):
             return "DateTime('UTC')"
             
         if field == "number" :
-            return "Float32"
+            return "Nullable(Float64)"
             
         if field == "string" :
             return "String"

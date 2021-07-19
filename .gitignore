@@ -1,5 +1,5 @@
 .DS_Store
-note.txt
+notes.txt
 deployment/clickhouse/data
 deployment/influxdb/data
 
