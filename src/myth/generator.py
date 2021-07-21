@@ -4,7 +4,7 @@ from datetime import datetime
 from multiprocessing import Process
 
 from myth.sink import KafkaSink, ConsoleSink, ClickhouseSink
-from myth.influx import InfluxSink
+from myth.influx import InfluxSink, Influx2Sink
 
 from faker import Faker
 
@@ -158,6 +158,9 @@ class DataGenerator:
 
             if t["type"] == "influx":
                 sinks.append(InfluxSink(t,fields))
+
+            if t["type"] == "influx2":
+                sinks.append(Influx2Sink(t,fields))
                 
             # register customer sink here
         return sinks

@@ -28,7 +28,10 @@ debug_clickhouse:
 	docker run --network clickhouse_default -v $(PWD)/src:/app $(IMAGE_NAME) python3 -m myth.main --config clickhouse.json
 
 debug_influx:
-	docker run --network influxdb_default -v $(PWD)/src:/app $(IMAGE_NAME) python3 -m myth.main --config influx.json
+	docker run --network influxdb1_default -v $(PWD)/src:/app $(IMAGE_NAME) python3 -m myth.main --config influx.json
+
+debug_influx2:
+	docker run --network influxdb2_default -v $(PWD)/src:/app $(IMAGE_NAME) python3 -m myth.main --config influx2.json
 
 run:
 	docker run $(IMAGE_NAME) python3 -m myth.main --help

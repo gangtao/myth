@@ -1,0 +1,21 @@
+version: "3.7"
+services:
+  influxdb:
+    container_name: influxdb
+    image: influxdb:1.8.6
+    volumes:
+      - ./data/:/var/lib/influxdb
+    ports:
+      - "8086:8086"
+      - "2003:2003"
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 4096M
+        reservations:
+          memory: 4096M
+    networks:
+      - default
+networks:
+  default:

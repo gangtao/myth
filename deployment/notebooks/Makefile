@@ -14,5 +14,8 @@ push:
 	docker tag $(IMAGE_NAME) ${FULLNAME}
 	docker push ${FULLNAME}
 
-run:
+run_ck:
 	docker run --network clickhouse_default -p 8888:8888 -v $(PWD)/notebooks/:/opt/notebooks/ $(IMAGE_NAME) --NotebookApp.token=''
+
+run:
+	docker run -p 8888:8888 -v $(PWD)/notebooks/:/opt/notebooks/ $(IMAGE_NAME) --NotebookApp.token=''
