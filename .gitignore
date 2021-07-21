@@ -1,8 +1,6 @@
 .DS_Store
 notes.txt
-deployment/clickhouse/data
-deployment/influxdb1/data
-deployment/influxdb2/data
+deployment/*/data
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

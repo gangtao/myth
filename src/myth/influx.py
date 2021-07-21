@@ -4,8 +4,8 @@ import requests
 from myth.sink import Sink
 
 class InfluxSink(Sink):
-    def __init__(self, config, fields):
-        Sink.__init__(self, config, fields)
+    def __init__(self, config, fields, worker_id):
+        Sink.__init__(self, config, fields, worker_id)
         self.config = config
         
         self.write_url = f'{self.config["url"]}write'
@@ -68,8 +68,8 @@ class InfluxSink(Sink):
             return 0
 
 class Influx2Sink(Sink):
-    def __init__(self, config, fields):
-        Sink.__init__(self, config, fields)
+    def __init__(self, config, fields, worker_id):
+        Sink.__init__(self, config, fields, worker_id)
         self.config = config
         
         self.write_url = f'{self.config["url"]}api/v2/write'

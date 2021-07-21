@@ -1,0 +1,38 @@
+{
+    "batch_size" : 100,
+    "batch_number" : 100,
+    "interval" : 1,
+    "name" : "cpu",
+    "start_date" : "",
+    "precision" : "ms",
+    "realtime" : false,
+    "fields" : [
+        {"name":"created_date", "type":"date" },
+        {"name":"created_at", "type":"datetime" },
+        {"name":"time", "type":"timestamp", "precision" : "ms"},
+        {"name":"id", "type" : "worker_id" },
+        {"name":"tag_id", "type" : "string", "format" : "####"},
+        {"name": "usage_user", "type" : "number", "format" : "##"},
+        {"name": "usage_system", "type" : "number", "format" : "##"},
+        {"name": "usage_idle", "type" : "number", "format" : "##"},
+        {"name": "usage_nice", "type" : "number", "format" : "##"},
+        {"name": "usage_iowait", "type" : "number", "format" : "##"},
+        {"name": "usage_irq", "type" : "number", "format" : "##"},
+        {"name": "usage_softirq", "type" : "number", "format" : "##"},
+        {"name": "usage_steal", "type" : "number", "format" : "##"},
+        {"name": "usage_guest", "type" : "number", "format" : "##"},
+        {"name": "usage_guest_nice", "type" : "number", "format" : "##"},
+        {"name": "additional_tags", "type" : "string", "format" : "##"}
+    ],
+    "sinks":[
+        {
+            "type":"tdengine",
+            "url" :"http://tdengine:6041/",
+            "db" : "devops",
+            "measure" : "cpu",
+            "precision" : "ms",
+            "username": "test",
+            "password": "test"
+        }
+    ]
+}

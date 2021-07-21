@@ -20,10 +20,11 @@ def is_number(n):
 
 
 class Sink:
-    def __init__(self, config, fields):
+    def __init__(self, config, fields, worker_id):
         self.config = config
         self.fields = fields
         self.name = 'sink'
+        self.worker_id = worker_id
         
     def send(self, data):
         print(data)
@@ -35,8 +36,8 @@ class Sink:
         return self.name
         
 class KafkaSink(Sink):
-    def __init__(self, config, fields):
-        Sink.__init__(self, config, fields)
+    def __init__(self, config, fields, worker_id):
+        Sink.__init__(self, config, fields, worker_id)
         self.kafka_config = {'bootstrap.servers': self.config["broker"], 
                 'client.id': socket.gethostname()
             }
@@ -59,8 +60,8 @@ class ConsoleSink(Sink):
         
 
 class ClickhouseSink(Sink):
-    def __init__(self, config, fields):
-        Sink.__init__(self, config, fields)
+    def __init__(self, config, fields, worker_id):
+        Sink.__init__(self, config, fields, worker_id)
         self.url = self.config["url"]
         
         self.schema_config = self.config["schema"]
@@ -120,6 +121,7 @@ class ClickhouseSink(Sink):
         fields = [ f'{field["name"]} {self.get_db_type(field["type"])}' for field in self.fields]
         self.fields_types = [ self.get_db_type(field["type"]) for field in self.fields]
         sql_create_table = sql_create_table + ','.join(fields)
+        # TODO: support differnt engine type
         sql_create_table = sql_create_table + ') ENGINE = MergeTree() PARTITION BY toYYYYMMDD(time) ORDER BY time'
         return sql_create_table
     

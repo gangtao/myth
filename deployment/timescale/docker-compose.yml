@@ -1,0 +1,22 @@
+version: "3.7"
+services:
+  influxdb:
+    container_name: timescale
+    image: timescale/timescaledb:latest-pg12
+    environment:
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - ./data/:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 4096M
+        reservations:
+          memory: 4096M
+    networks:
+      - default
+networks:
+  default:

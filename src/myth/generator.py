@@ -5,6 +5,7 @@ from multiprocessing import Process
 
 from myth.sink import KafkaSink, ConsoleSink, ClickhouseSink
 from myth.influx import InfluxSink, Influx2Sink
+from myth.td import TDSink
 
 from faker import Faker
 
@@ -45,7 +46,7 @@ class DataGenerator:
         }[self.config["precision"]]
         
         self.sinks_config = self.config["sinks"]
-        self.sinks = self.create_sinks(self.sinks_config, self.config["fields"])
+        self.sinks = self.create_sinks(self.sinks_config, self.config["fields"], self.id)
         
     def generate(self):
         for i in range(self.config["batch_size"]):
@@ -124,11 +125,13 @@ class DataGenerator:
     
     def observe(self, sink):
         count = sink.count()
+        print(f'initial count is {count}')
         start_time = time.time()
         while True:
             time.sleep(1)
             end_time = time.time()
             new_count = sink.count()
+            print(f'new count is {new_count}')
             count_diff = new_count - count
             time_diff = end_time - start_time
             print(f'iops for {sink.name} is {count_diff/time_diff}')
@@ -143,24 +146,27 @@ class DataGenerator:
                 query_latency = sink.send(self.csv())
                 #print(f'data send to {sink.name} with {query_latency}')    
                 
-    def create_sinks(self, config, fields):
+    def create_sinks(self, config, fields, worker_id):
         sinks = []
 
         for t in config:
             if t["type"] == "kafka":
-                sinks.append(KafkaSink(t,fields))
+                sinks.append(KafkaSink(t,fields,worker_id))
                 
             if t["type"] == "console":
-                sinks.append(ConsoleSink(t,fields))
+                sinks.append(ConsoleSink(t,fields,worker_id))
                 
             if t["type"] == "clickhouse":
-                sinks.append(ClickhouseSink(t,fields))
+                sinks.append(ClickhouseSink(t,fields,worker_id))
 
             if t["type"] == "influx":
-                sinks.append(InfluxSink(t,fields))
+                sinks.append(InfluxSink(t,fields,worker_id))
 
             if t["type"] == "influx2":
-                sinks.append(Influx2Sink(t,fields))
+                sinks.append(Influx2Sink(t,fields,worker_id))
+
+            if t["type"] == "tdengine":
+                sinks.append(TDSink(t,fields,worker_id))
                 
             # register customer sink here
         return sinks

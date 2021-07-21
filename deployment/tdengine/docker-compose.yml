@@ -1,0 +1,32 @@
+version: "3.7"
+services:
+  influxdb:
+    container_name: tdengine
+    hostname: tdengine.io
+    image: tdengine/tdengine:2.0.20.10
+    volumes:
+      - ./data/:/etc/taos
+    ports:
+      - "6030:6030"
+      - "6031:6031"
+      - "6032:6032"
+      - "6033:6033"
+      - "6034:6034"
+      - "6035:6035"
+      - "6036:6036"
+      - "6037:6037"
+      - "6038:6038"
+      - "6039:6039"
+      - "6040:6040"
+      - "6041:6041"
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 4096M
+        reservations:
+          memory: 4096M
+    networks:
+      - default
+networks:
+  default:

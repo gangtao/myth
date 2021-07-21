@@ -33,6 +33,9 @@ debug_influx:
 debug_influx2:
 	docker run --network influxdb2_default -v $(PWD)/src:/app $(IMAGE_NAME) python3 -m myth.main --config influx2.json
 
+debug_td:
+	docker run --network tdengine_default -v $(PWD)/src:/app $(IMAGE_NAME) python3 -m myth.main --config tdengine.json
+
 run:
 	docker run $(IMAGE_NAME) python3 -m myth.main --help
 
