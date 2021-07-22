@@ -10,7 +10,8 @@
         {"name":"created_date", "type":"date" },
         {"name":"created_at", "type":"datetime" },
         {"name":"time", "type":"timestamp", "precision" : "ms"},
-        {"name":"tag_id", "type" : "number", "format" : "####"},
+        {"name":"id", "type" : "worker_id" },
+        {"name":"tag_id", "type" : "string", "format" : "####"},
         {"name": "usage_user", "type" : "number", "format" : "##"},
         {"name": "usage_system", "type" : "number", "format" : "##"},
         {"name": "usage_idle", "type" : "number", "format" : "##"},
@@ -23,15 +24,12 @@
         {"name": "usage_guest_nice", "type" : "number", "format" : "##"},
         {"name": "additional_tags", "type" : "string", "format" : "##"}
     ],
-    "sink": {
-            "type":"clickhouse",
-            "url" :"http://clickhouse:8123/",
-            "schema" : {
-                "create_table" : "auto",
-                "create_table_sql" : "",
-                "table_name" : "cpu",
-                "database_name" : "devops",
-                "partition_fields": "time"
-            }
+    "sink":{
+            "type":"questdb",
+            "host" :"questdb",
+            "port" : 9009,
+            "db" : "devops",
+            "measure" : "cpu",
+            "precision" : "ms"
     }
 }

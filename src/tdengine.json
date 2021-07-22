@@ -24,8 +24,7 @@
         {"name": "usage_guest_nice", "type" : "number", "format" : "##"},
         {"name": "additional_tags", "type" : "string", "format" : "##"}
     ],
-    "sinks":[
-        {
+    "sink":{
             "type":"tdengine",
             "url" :"http://tdengine:6041/",
             "db" : "devops",
@@ -33,6 +32,5 @@
             "precision" : "ms",
             "username": "test",
             "password": "test"
-        }
-    ]
+    }
 }

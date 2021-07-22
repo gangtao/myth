@@ -1,11 +1,12 @@
 version: "3.7"
 services:
-  influxdb:
+  tdengine:
     container_name: tdengine
     hostname: tdengine.io
     image: tdengine/tdengine:2.0.20.10
     volumes:
-      - ./data/:/etc/taos
+      - ./data/:/var/lib/taos
+      - ./config/:/etc/taos
     ports:
       - "6030:6030"
       - "6031:6031"

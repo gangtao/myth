@@ -17,5 +17,8 @@ push:
 run_ck:
 	docker run --network clickhouse_default -p 8888:8888 -v $(PWD)/notebooks/:/opt/notebooks/ $(IMAGE_NAME) --NotebookApp.token=''
 
+run_qeustdb:
+	docker run --network questdb_default -p 8888:8888 -v $(PWD)/notebooks/:/opt/notebooks/ $(IMAGE_NAME) --NotebookApp.token=''
+
 run:
 	docker run -p 8888:8888 -v $(PWD)/notebooks/:/opt/notebooks/ $(IMAGE_NAME) --NotebookApp.token=''

@@ -1,12 +1,10 @@
 version: "3.7"
 services:
-  timescale:
-    container_name: timescale
-    image: timescale/timescaledb:latest-pg12
-    environment:
-      - POSTGRES_PASSWORD=password
+  dorisdb:
+    container_name: dorisdb
+    image: apachedoris/doris-dev:build-env-1.3
     volumes:
-      - ./data/:/var/lib/postgresql/data
+      - ./data/:/root/incubator-doris-DORIS-1.3-release/
     ports:
       - "5432:5432"
     deploy:

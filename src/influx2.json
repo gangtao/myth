@@ -24,8 +24,7 @@
         {"name": "usage_guest_nice", "type" : "number", "format" : "##"},
         {"name": "additional_tags", "type" : "string", "format" : "##"}
     ],
-    "sinks":[
-        {
+    "sink":{
             "type":"influx2",
             "url" :"http://influxdb:8086/",
             "org" : "test",
@@ -33,6 +32,5 @@
             "token" : "6b9JljDYHPYro1C3-cv8MrAQtmtUM3WrZlRjkiSEhzZUPYFvETKG0WMVLf6vKd0tcN0awHkul_zTbAuK8IaNTw==",
             "measure" : "cpu",
             "precision" : "ms"
-        }
-    ]
+    }
 }

@@ -24,13 +24,11 @@
         {"name": "usage_guest_nice", "type" : "number", "format" : "##"},
         {"name": "additional_tags", "type" : "string", "format" : "##"}
     ],
-    "sinks":[
-        {
+    "sink":{
             "type":"influx",
             "url" :"http://influxdb:8086/",
             "db" : "devops",
             "measure" : "cpu",
             "precision" : "ms"
-        }
-    ]
+    }
 }

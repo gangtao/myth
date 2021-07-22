@@ -27,6 +27,14 @@ class InfluxSink(Sink):
             else:
                 tag = {"name": v["name"], "index":i }
                 self.tags.append(tag)
+
+        self.init()
+
+    def init(self):
+        create_db_sql = f'CREATE DATABASE "{self.db}" '
+        #print(create_db_sql)
+        self.query(create_db_sql)
+
         
     def write(self, line):
         params = {'db': self.db}
@@ -58,9 +66,8 @@ class InfluxSink(Sink):
 
         r = self.query(query)
         result = r.json()
+        #print(result)
         result_count = result['results'][0]['series'][0]['values'][0][1]
-
-        print('result count', result_count)
 
         if result_count:
             return int(result_count)

@@ -36,6 +36,9 @@ debug_influx2:
 debug_td:
 	docker run --network tdengine_default -v $(PWD)/src:/app $(IMAGE_NAME) python3 -m myth.main --config tdengine.json
 
+debug_questdb:
+	docker run --network questdb_default -v $(PWD)/src:/app $(IMAGE_NAME) python3 -m myth.main --config questdb.json
+
 run:
 	docker run $(IMAGE_NAME) python3 -m myth.main --help
 
