@@ -9,6 +9,7 @@ from myth.sink import KafkaSink, ConsoleSink, ClickhouseSink
 from myth.influx import InfluxSink, Influx2Sink
 from myth.td import TDSink
 from myth.questdb import QuestDBSink
+from myth.timescale import TimeScaleSink
 
 from faker import Faker
 
@@ -179,6 +180,9 @@ class DataGenerator:
         
         if config["type"] == "questdb":
             return QuestDBSink(config,fields,worker_id)
+        
+        if config["type"] == "timescale":
+            return TimeScaleSink(config,fields,worker_id)
                 
         # register customer sink here
         return None

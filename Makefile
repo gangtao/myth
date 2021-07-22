@@ -39,6 +39,9 @@ debug_td:
 debug_questdb:
 	docker run --network questdb_default -v $(PWD)/src:/app $(IMAGE_NAME) python3 -m myth.main --config questdb.json
 
+debug_timescale:
+	docker run --network timescale_default -v $(PWD)/src:/app $(IMAGE_NAME) python3 -m myth.main --config timescale.json --worker 8
+
 run:
 	docker run $(IMAGE_NAME) python3 -m myth.main --help
 
