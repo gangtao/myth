@@ -8,6 +8,7 @@ class TDSink(Sink):
     def __init__(self, config, fields, worker_id):
         Sink.__init__(self, config, fields, worker_id)
         self.config = config
+        self.name = 'tdengine'
 
         self.query_url = f'{self.config["url"]}rest/sql'
         # manually create user in taos is required
@@ -81,5 +82,8 @@ class TDSink(Sink):
         count_sql = f'SELECT COUNT(*) FROM {self.db}.{self.measure} '
         r = self.query(count_sql)
         result = r.json()
-        result_count = result["data"][0][0]
-        return int(result_count)
+        try:
+            result_count = result["data"][0][0]
+            return int(result_count)
+        except:
+            return 0

@@ -9,6 +9,7 @@ class QuestDBSink(Sink):
     def __init__(self, config, fields, worker_id):
         Sink.__init__(self, config, fields, worker_id)
         self.config = config
+        self.name = 'questdb'
         
         self.host = f'{self.config["host"]}'
         self.port = int(self.config["port"])

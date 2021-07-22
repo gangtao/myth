@@ -15,6 +15,15 @@ from faker import Faker
 def generate_concurrent(config_file, concurrency):
     print(config_file, concurrency)
 
+    # start observation first
+    generator = DataGenerator(config_file, f'ob')
+    sink = generator.sink
+    initial_count = sink.count()
+    print(f'initial count is {initial_count}')
+    ob = Process(target=generator.observe, args=(sink,initial_count,concurrency))
+    ob.start()
+
+    # start workers
     workers = []
     for i in range(concurrency):
         generator = DataGenerator(config_file, f'worker{i}')
@@ -23,10 +32,7 @@ def generate_concurrent(config_file, concurrency):
         w.start()
         workers.append(w)
     
-    generator = DataGenerator(config_file, f'ob')
-    sink = generator.sink
-    ob = Process(target=generator.observe, args=(sink,))
-    ob.start()
+    
     ob.join()
     
     for w in workers:
@@ -123,30 +129,31 @@ class DataGenerator:
             result = result + '|'.join(i) + '\n'
         return result
     
-    def observe(self, sink):
+    def observe(self, sink, initial_count, concurrency):
+        target_count = self.config["batch_size"]* self.config["batch_number"]*concurrency + initial_count
         metrics = []
         count = sink.count()
-        print(f'initial count is {count}')
         start_time = time.time()
         metrics.append((start_time, count))
         while True:
             time.sleep(1)
             end_time = time.time()
             new_count = sink.count()
-            print(f'new count is {new_count}')
+            #print(f'new count is {new_count}')
             metrics.append((end_time, new_count))
             count_diff = new_count - count
             time_diff = end_time - start_time
             print(f'iops for {sink.name} is {count_diff/time_diff}')
-            if count_diff == 0:
+            if new_count >=  target_count - 10: # there is some missing data in td, this is  a work around
+                print(f'final count is {new_count}')
                 break;
             count = new_count
             start_time = end_time
-
         print(f'the average IOPS is {(metrics[-1][1]-metrics[0][1])/(metrics[-1][0]-metrics[0][0])}')
     
     def load(self):
         for i in range(self.config["batch_number"]):
+            # for each batch, need get the initial time from end of previous batch, other wise, there might exist duplicated timestamp
             query_latency = self.sink.send(self.csv())
             #print(f'data send to {sink.name} with {query_latency}')    
                 

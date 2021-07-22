@@ -7,6 +7,7 @@ class InfluxSink(Sink):
     def __init__(self, config, fields, worker_id):
         Sink.__init__(self, config, fields, worker_id)
         self.config = config
+        self.name = 'influx'
         
         self.write_url = f'{self.config["url"]}write'
         self.query_url = f'{self.config["url"]}query'
@@ -78,6 +79,7 @@ class Influx2Sink(Sink):
     def __init__(self, config, fields, worker_id):
         Sink.__init__(self, config, fields, worker_id)
         self.config = config
+        self.name = 'influx2'
         
         self.write_url = f'{self.config["url"]}api/v2/write'
         self.query_url = f'{self.config["url"]}api/v2/query'
