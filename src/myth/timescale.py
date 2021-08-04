@@ -53,18 +53,20 @@ class TimeScaleSink(Sink):
             cursor = connection.cursor()
             cursor.execute(sql)
             records = cursor.fetchall()
+            '''
             for row in records:
                 print(row)
+            '''
         finally:
             if (connection):
                 cursor.close()
                 connection.close()
-                print("Postgres connection is closed")
+                #print("Postgres connection is closed")
         return records
     
     def init(self):        
         if self.create_table:
-            print(self.create_table_sql)
+            #print(self.create_table_sql)
             r = self.write(self.create_table_sql)
         
     def send(self, data):

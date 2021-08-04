@@ -2,9 +2,10 @@ import socket
 import time
 import requests
 
+
+
 from confluent_kafka import Producer
 from faker import Faker
-
 fake = Faker()
 
 class Sink:
@@ -22,6 +23,9 @@ class Sink:
     
     def name(self):
         return self.name
+    
+    def query(self, sql):
+        pass
         
 class KafkaSink(Sink):
     def __init__(self, config, fields, worker_id):

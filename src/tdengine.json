@@ -1,6 +1,6 @@
 {
-    "batch_size" : 1000,
-    "batch_number" : 10,
+    "batch_size" : 100,
+    "batch_number" : 100,
     "interval" : 1,
     "name" : "cpu",
     "start_date" : "",
@@ -32,5 +32,22 @@
             "precision" : "ms",
             "username": "test",
             "password": "test"
+    },
+    "execute": {
+        "repeat" : 10,
+        "queries" : [
+            {
+                "name" : "query_count_all",
+                "value" : "select count(*) from devops.cpu"
+            },
+            {
+                "name" : "query_select_all",
+                "value" : "select * from devops.cpu"
+            },
+            {
+                "name" : "query_select_filter",
+                "value" : "select * from devops.cpu where usage_user > 50"
+            }
+        ]
     }
 }

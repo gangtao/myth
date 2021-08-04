@@ -34,13 +34,13 @@ debug_influx2:
 	docker run --network influxdb2_default -v $(PWD)/src:/app $(IMAGE_NAME) python3 -m myth.main --config influx2.json
 
 debug_td:
-	docker run --network tdengine_default -v $(PWD)/src:/app $(IMAGE_NAME) python3 -m myth.main --config tdengine.json --worker 1
+	docker run --network tdengine_default -v $(PWD)/src:/app $(IMAGE_NAME) python3 -m myth.main --config tdengine.json
 
 debug_questdb:
 	docker run --network questdb_default -v $(PWD)/src:/app $(IMAGE_NAME) python3 -m myth.main --config questdb.json
 
 debug_timescale:
-	docker run --network timescale_default -v $(PWD)/src:/app $(IMAGE_NAME) python3 -m myth.main --config timescale.json --worker 8
+	docker run --network timescale_default -v $(PWD)/src:/app $(IMAGE_NAME) python3 -m myth.main --config timescale.json
 
 run:
 	docker run $(IMAGE_NAME) python3 -m myth.main --help

@@ -68,11 +68,14 @@ class InfluxSink(Sink):
         r = self.query(query)
         result = r.json()
         #print(result)
-        result_count = result['results'][0]['series'][0]['values'][0][1]
+        try:
+            result_count = result['results'][0]['series'][0]['values'][0][1]
 
-        if result_count:
-            return int(result_count)
-        else:
+            if result_count:
+                return int(result_count)
+            else:
+                return 0
+        except:
             return 0
 
 class Influx2Sink(Sink):

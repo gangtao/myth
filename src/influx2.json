@@ -28,9 +28,18 @@
             "type":"influx2",
             "url" :"http://influxdb:8086/",
             "org" : "test",
-            "bucket" : "test",
-            "token" : "6b9JljDYHPYro1C3-cv8MrAQtmtUM3WrZlRjkiSEhzZUPYFvETKG0WMVLf6vKd0tcN0awHkul_zTbAuK8IaNTw==",
+            "bucket" : "devops",
+            "token" : "GKj0ZfqUJX5W-vMy5jrFQyHcKr1eIvwhq0Vtrm6vG82OpS13XbEiktQ4xK25RBDNp3wc_rokWp6bCULj8dhTfA==",
             "measure" : "cpu",
             "precision" : "ms"
+    },
+    "execute": {
+        "repeat" : 10,
+        "queries" : [
+            {
+                "name" : "query_count_all",
+                "value" : "from(bucket: \"devops\")|> range(start: -2d)|> group(columns: [\"_measurement\"])|> filter(fn: (r) => r[\"_measurement\"] == \"cpu\" and r[\"_field\"] == \"usage_user\") |> count() |> yield()"
+            }
+        ]
     }
 }

@@ -34,5 +34,22 @@
                 "table_name" : "cpu",
                 "database_name" : "devops"
             }
+    },
+    "execute": {
+        "repeat" : 10,
+        "queries" : [
+            {
+                "name" : "query_count_all",
+                "value" : "select count(*) from cpu"
+            },
+            {
+                "name" : "query_select_all",
+                "value" : "select * from cpu"
+            },
+            {
+                "name" : "query_select_filter",
+                "value" : "select * from cpu where usage_user > 50"
+            }
+        ]
     }
 }

@@ -70,6 +70,9 @@ class QuestDBSink(Sink):
     
     def count(self):
         count_sql = f'select count(*) from {self.measure}'
-        r = self.query(count_sql)
-        print(r[0][0])
-        return int(r[0][0])
+        try:
+            r = self.query(count_sql)
+            print(r[0][0])
+            return int(r[0][0])
+        except:
+            return 0

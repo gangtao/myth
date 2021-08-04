@@ -33,5 +33,22 @@
                 "database_name" : "devops",
                 "partition_fields": "time"
             }
+    },
+    "execute": {
+        "repeat" : 10,
+        "queries" : [
+            {
+                "name" : "query_count_all",
+                "value" : "select count(*) from devops.cpu"
+            },
+            {
+                "name" : "query_select_all",
+                "value" : "select * from devops.cpu"
+            },
+            {
+                "name" : "query_select_filter",
+                "value" : "select * from devops.cpu where usage_user > 50"
+            }
+        ]
     }
 }
