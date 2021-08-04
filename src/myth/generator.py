@@ -5,7 +5,8 @@ import os
 from datetime import datetime
 from multiprocessing import Process
 
-from myth.sink import KafkaSink, ConsoleSink, ClickhouseSink
+from myth.sink import KafkaSink, ConsoleSink
+from myth.clickhouse import ClickhouseSink
 from myth.influx import InfluxSink, Influx2Sink
 from myth.td import TDSink
 from myth.questdb import QuestDBSink
@@ -32,7 +33,6 @@ def generate_concurrent(config_file, concurrency):
         w = Process(target=generator.load)
         w.start()
         workers.append(w)
-    
     
     ob.join()
     
