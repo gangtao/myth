@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  materialized:
+    container_name: materialized
+    image: materialize/materialized:v0.8.3
+    command: --workers 1
+    ports:
+      - "6875:6875"
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 4096M
+        reservations:
+          memory: 4096M
+    networks:
+      - default
+networks:
+  default:

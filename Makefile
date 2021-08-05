@@ -42,6 +42,9 @@ debug_questdb:
 debug_timescale:
 	docker run --network timescale_default -v $(PWD)/src:/app $(IMAGE_NAME) python3 -m myth.main --config timescale.json
 
+debug_materialize:
+	docker run --network materialize_default -v $(PWD)/src:/app $(IMAGE_NAME) python3 -m myth.main --config materialize.json
+
 run:
 	docker run $(IMAGE_NAME) python3 -m myth.main --help
 

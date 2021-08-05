@@ -1,0 +1,57 @@
+{
+    "batch_size" : 100,
+    "batch_number" : 100,
+    "interval" : 1,
+    "name" : "cpu",
+    "start_date" : "",
+    "precision" : "ms",
+    "realtime" : false,
+    "fields" : [
+        {"name":"created_date", "type":"date" },
+        {"name":"created_at", "type":"datetime" },
+        {"name":"time", "type":"timestamp", "precision" : "ms"},
+        {"name":"id", "type" : "worker_id" },
+        {"name":"tag_id", "type" : "string", "format" : "####"},
+        {"name": "usage_user", "type" : "number", "format" : "##"},
+        {"name": "usage_system", "type" : "number", "format" : "##"},
+        {"name": "usage_idle", "type" : "number", "format" : "##"},
+        {"name": "usage_nice", "type" : "number", "format" : "##"},
+        {"name": "usage_iowait", "type" : "number", "format" : "##"},
+        {"name": "usage_irq", "type" : "number", "format" : "##"},
+        {"name": "usage_softirq", "type" : "number", "format" : "##"},
+        {"name": "usage_steal", "type" : "number", "format" : "##"},
+        {"name": "usage_guest", "type" : "number", "format" : "##"},
+        {"name": "usage_guest_nice", "type" : "number", "format" : "##"},
+        {"name": "additional_tags", "type" : "string", "format" : "##"}
+    ],
+    "sink":{
+            "type":"materialize",
+            "host" :"materialized",
+            "port" : 6875,
+            "user" : "materialize",
+            "password" : "",
+            "schema" : {
+                "create_table" : "no",
+                "sql" : "CREATE TABLE cpu (created_date date, created_at timestamp, time float8, id text, tag_id text, usage_user float8, usage_system float8, usage_idle float8, usage_nice float8, usage_iowait float8, usage_irq float8, usage_softirq float8, usage_steal float8, usage_guest float8, usage_guest_nice float8, additional_tags text)",
+                "table_name" : "cpu",
+                "database_name" : "materialize"
+            }
+    },
+    "execute": {
+        "repeat" : 10,
+        "queries" : [
+            {
+                "name" : "query_count_all",
+                "value" : "select count(*) from cpu"
+            },
+            {
+                "name" : "query_select_all",
+                "value" : "select * from cpu"
+            },
+            {
+                "name" : "query_select_filter",
+                "value" : "select * from cpu where usage_user > 50"
+            }
+        ]
+    }
+}

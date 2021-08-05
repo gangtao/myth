@@ -4,6 +4,7 @@ from myth.influx import InfluxSink, Influx2Sink
 from myth.td import TDSink
 from myth.questdb import QuestDBSink
 from myth.timescale import TimeScaleSink
+from myth.materialize import MaterializeSink
 
 def create_sink(config, fields, worker_id):
 
@@ -30,6 +31,9 @@ def create_sink(config, fields, worker_id):
     
     if config["type"] == "timescale":
         return TimeScaleSink(config,fields,worker_id)
+
+    if config["type"] == "materialize":
+        return MaterializeSink(config,fields,worker_id)
             
     # register customer sink here
     return None
